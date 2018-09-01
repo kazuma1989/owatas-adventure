@@ -9,7 +9,7 @@ phina.define('MainScene', {
 
     this.backgroundColor = 'white';
 
-    this.owata = AaObject('┏(^o^ )┓\n┃┃');
+    this.owata = new AaObject('┏(^o^ )┓\n┃┃');
     this.owata.addChildTo(this);
     this.owata.x = this.gridX.center();
     this.owata.y = this.gridY.center();
@@ -44,8 +44,11 @@ phina.define('MainScene', {
 });
 
 phina.main(() => {
-  const app = GameApp({
+  const app = new GameApp({
     startLabel: 'main',
+    width: 550,
+    height: 350,
+    fit: false,
   });
 
   app.run();
