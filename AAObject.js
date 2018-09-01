@@ -1,4 +1,4 @@
-phina.define('AaObject', {
+phina.define('AAObject', {
 
   superClass: 'Label',
 
@@ -12,7 +12,8 @@ phina.define('AaObject', {
 
     const defaults = {
       text: '┗(^o^ )┓\n┏┗ ',
-      fontFamily: 'monospace'
+      fontFamily: 'monospace',
+      fontSize: 14,
     };
 
     this.superInit(Object.assign(defaults, options));

@@ -1,8 +1,8 @@
 phina.define('Owata', {
 
-  superClass: 'AaObject',
+  superClass: 'AAObject',
 
-  speed: 12,
+  speed: 8,
   leftFace: true,
   jumpPower: 24,
   gravity: 2,
