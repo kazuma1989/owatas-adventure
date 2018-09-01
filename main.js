@@ -9,11 +9,11 @@ phina.define('MainScene', {
 
     this.backgroundColor = 'white';
 
-    const owata = new AaObject('┏(^o^ )┓\n┃┃');
+    const owata = new Owata({
+      x: this.gridX.center(),
+      y: this.gridY.center(),
+    });
     owata.addChildTo(this);
-    owata.x = this.gridX.center();
-    owata.y = this.gridY.center();
-    owata.leftFace = true;
     this.owata = owata;
   },
 
@@ -26,52 +26,21 @@ phina.define('MainScene', {
     } = this;
 
     if (keyboard.getKey('left')) {
-      switch (frame % 4) {
-        case 0:
-        case 1:
-          owata.text = '┏(^o^ )┛\n┛┏';
-          owata.originY = 0.5 + 0.02;
-          break;
-        case 2:
-        case 3:
-          owata.text = '┗(^o^ )┓\n┏┗';
-          owata.originY = 0.5 - 0.02;
-          break;
-      }
-      owata.leftFace = true;
-      owata.x -= SPEED;
+      owata.moveLeft(frame);
     }
     else if (keyboard.getKey('right')) {
-      switch (frame % 4) {
-        case 0:
-        case 1:
-          owata.text = '┗( ^o^)┓\n┓┗';
-          owata.originY = 0.5 + 0.02;
-          break;
-        case 2:
-        case 3:
-          owata.text = '┏( ^o^)┛\n┛┓';
-          owata.originY = 0.5 - 0.02;
-          break;
-      }
-      owata.leftFace = false;
-      owata.x += SPEED;
-    }
-    else if (keyboard.getKey('z')) {
-      owata.text = owata.leftFace ? '┗(^o^ )┛\n┗┃' : '┗( ^o^)┛\n┃┛';
-      owata.physical.velocity.y = -8;
-      owata.physical.gravity.y = 2;
+      owata.moveRight(frame);
     }
     else {
-      owata.text = owata.leftFace ? '┏(^o^ )┓\n┃┃' : '┏( ^o^)┓\n┃┃';
-      owata.originY = 0.5;
+      owata.stay();
+    }
+
+    if (keyboard.getKey('z')) {
+      owata.jump();
     }
 
     if (owata.y > this.gridY.center()) {
-      owata.y = this.gridY.center();
-
-      owata.physical.velocity.y = 0;
-      owata.physical.gravity.y = 0;
+      owata.touchGround(this.gridY.center());
     }
   },
 
