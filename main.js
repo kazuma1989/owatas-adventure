@@ -9,35 +9,57 @@ phina.define('MainScene', {
 
     this.backgroundColor = 'white';
 
-    this.owata = new AaObject('┏(^o^ )┓\n┃┃');
-    this.owata.addChildTo(this);
-    this.owata.x = this.gridX.center();
-    this.owata.y = this.gridY.center();
+    const owata = new AaObject('┏(^o^ )┓\n┃┃');
+    owata.addChildTo(this);
+    owata.x = this.gridX.center();
+    owata.y = this.gridY.center();
+    owata.leftFace = true;
+    this.owata = owata;
   },
 
   update({
     keyboard,
-    pointer,
+    frame,
   }) {
-    if (pointer.getPointing()) {
-      const diff = pointer.x - this.owata.x;
-      if (Math.abs(diff) > SPEED) {
-        this.owata.x += Math.sign(diff) * SPEED;
+    const {
+      owata,
+    } = this;
+
+    if (keyboard.getKey('left')) {
+      switch (frame % 4) {
+        case 0:
+        case 1:
+          owata.text = '┏(^o^ )┛\n┛┏';
+          owata.originY = 0.5 + 0.02;
+          break;
+        case 2:
+        case 3:
+          owata.text = '┗(^o^ )┓\n┏┗';
+          owata.originY = 0.5 - 0.02;
+          break;
       }
+      owata.leftFace = true;
+      owata.x -= SPEED;
+    }
+    else if (keyboard.getKey('right')) {
+      switch (frame % 4) {
+        case 0:
+        case 1:
+          owata.text = '┗( ^o^)┓\n┓┗';
+          owata.originY = 0.5 + 0.02;
+          break;
+        case 2:
+        case 3:
+          owata.text = '┏( ^o^)┛\n┛┓';
+          owata.originY = 0.5 - 0.02;
+          break;
+      }
+      owata.leftFace = false;
+      owata.x += SPEED;
     }
     else {
-      if (keyboard.getKey('left')) {
-        this.owata.x -= SPEED;
-      }
-      else if (keyboard.getKey('right')) {
-        this.owata.x += SPEED;
-      }
-      else if (keyboard.getKey('up')) {
-        this.owata.y -= SPEED;
-      }
-      else if (keyboard.getKey('down')) {
-        this.owata.y += SPEED;
-      }
+      owata.text = owata.leftFace ? '┏(^o^ )┓\n┃┃' : '┏( ^o^)┓\n┃┃';
+      owata.originY = 0.5;
     }
   },
 
