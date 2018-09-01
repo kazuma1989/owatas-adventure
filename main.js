@@ -1,4 +1,4 @@
-const SPEED = 4;
+const SPEED = 12;
 
 phina.define('MainScene', {
 
@@ -15,13 +15,28 @@ phina.define('MainScene', {
     this.owata.y = this.gridY.center();
   },
 
-  update(app) {
-    const p = app.pointer;
-
-    if (p.getPointing()) {
-      const diff = p.x - this.owata.x;
+  update({
+    keyboard,
+    pointer,
+  }) {
+    if (pointer.getPointing()) {
+      const diff = pointer.x - this.owata.x;
       if (Math.abs(diff) > SPEED) {
         this.owata.x += Math.sign(diff) * SPEED;
+      }
+    }
+    else {
+      if (keyboard.getKey('left')) {
+        this.owata.x -= SPEED;
+      }
+      else if (keyboard.getKey('right')) {
+        this.owata.x += SPEED;
+      }
+      else if (keyboard.getKey('up')) {
+        this.owata.y -= SPEED;
+      }
+      else if (keyboard.getKey('down')) {
+        this.owata.y += SPEED;
       }
     }
   },
