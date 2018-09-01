@@ -2,6 +2,28 @@ phina.globalize();
 
 const SPEED = 4;
 
+phina.define('AaObject', {
+
+  superClass: 'Label',
+
+  init(options) {
+    if (typeof options === 'string') {
+      const text = options;
+      options = {
+        text,
+      };
+    }
+
+    const defaults = {
+      text: '┗(^o^ )┓\n┏┗ ',
+      fontFamily: 'monospace'
+    };
+
+    this.superInit(Object.assign(defaults, options));
+  },
+
+});
+
 phina.define('MainScene', {
 
   superClass: 'DisplayScene',
@@ -11,10 +33,7 @@ phina.define('MainScene', {
 
     this.backgroundColor = '#444';
 
-    this.owata = Label({
-      text: '┗(^o^ )┓\n┏┗ ',
-      fontFamily: 'monospace',
-    });
+    this.owata = AaObject('┏(^o^ )┓\n┃┃');
     this.owata.addChildTo(this);
     this.owata.x = this.gridX.center();
     this.owata.y = this.gridY.center();
