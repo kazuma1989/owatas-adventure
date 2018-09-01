@@ -7,13 +7,12 @@ phina.define('MainScene', {
   init(options) {
     this.superInit(options);
 
-    this.backgroundColor = '#444';
+    this.backgroundColor = 'white';
 
     this.owata = AaObject('┏(^o^ )┓\n┃┃');
     this.owata.addChildTo(this);
     this.owata.x = this.gridX.center();
     this.owata.y = this.gridY.center();
-    this.owata.fill = 'white';
   },
 
   update(app) {
