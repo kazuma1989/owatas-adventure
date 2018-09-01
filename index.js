@@ -1,7 +1,7 @@
-// phina.js をグローバル領域に展開
 phina.globalize();
 
-// MainScene クラスを定義
+const SPEED = 4;
+
 phina.define('MainScene', {
 
   superClass: 'DisplayScene',
@@ -9,25 +9,35 @@ phina.define('MainScene', {
   init(options) {
     this.superInit(options);
 
-    // 背景色を指定
     this.backgroundColor = '#444';
 
-    // ラベルを生成
-    this.label = Label('Hello, phina.js!').addChildTo(this);
-    this.label.x = this.gridX.center(); // x 座標
-    this.label.y = this.gridY.center(); // y 座標
-    this.label.fill = 'white'; // 塗りつぶし色
+    this.owata = Label({
+      text: '┗(^o^ )┓\n┏┗ ',
+      fontFamily: 'monospace',
+    });
+    this.owata.addChildTo(this);
+    this.owata.x = this.gridX.center();
+    this.owata.y = this.gridY.center();
+    this.owata.fill = 'white';
+  },
+
+  update(app) {
+    const p = app.pointer;
+
+    if (p.getPointing()) {
+      const diff = p.x - this.owata.x;
+      if (Math.abs(diff) > SPEED) {
+        this.owata.x += Math.sign(diff) * SPEED;
+      }
+    }
   },
 
 });
 
-// メイン処理
 phina.main(() => {
-  // アプリケーション生成
   const app = GameApp({
-    startLabel: 'main', // メインシーンから開始する
+    startLabel: 'main',
   });
 
-  // アプリケーション実行
   app.run();
 });
