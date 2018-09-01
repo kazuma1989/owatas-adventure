@@ -57,9 +57,21 @@ phina.define('MainScene', {
       owata.leftFace = false;
       owata.x += SPEED;
     }
+    else if (keyboard.getKey('z')) {
+      owata.text = owata.leftFace ? '┗(^o^ )┛\n┗┃' : '┗( ^o^)┛\n┃┛';
+      owata.physical.velocity.y = -8;
+      owata.physical.gravity.y = 2;
+    }
     else {
       owata.text = owata.leftFace ? '┏(^o^ )┓\n┃┃' : '┏( ^o^)┓\n┃┃';
       owata.originY = 0.5;
+    }
+
+    if (owata.y > this.gridY.center()) {
+      owata.y = this.gridY.center();
+
+      owata.physical.velocity.y = 0;
+      owata.physical.gravity.y = 0;
     }
   },
 
