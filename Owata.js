@@ -21,7 +21,9 @@ phina.define('Owata', {
     const defaults = {
       text: this.stayingLeft,
       width: 40,
-      height: 30,
+      height: 28,
+      originX: 0.5,
+      originY: 0.5,
     };
 
     this.superInit(Object.assign(defaults, options));

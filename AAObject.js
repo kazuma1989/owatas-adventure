@@ -14,8 +14,12 @@ phina.define('AAObject', {
       text: '(^o^ )',
       fontFamily: 'monospace',
       fontSize: 14,
+      lineHeight: 1,
       width: 40,
       height: 7,
+      padding: 0,
+      originX: 0,
+      originY: 0,
     };
 
     this.superInit(Object.assign(defaults, options));

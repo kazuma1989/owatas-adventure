@@ -10,18 +10,19 @@ phina.define('MainScene', {
     this.backgroundColor = 'white';
 
     const owata = new Owata({
-      x: this.gridX.center(),
-      y: this.gridY.center(),
+      x: 484,
+      y: 301,
     });
     owata.addChildTo(this);
     this.owata = owata;
 
     const ground = new AAObject({
-      text: '────────────────────',
-      x: this.gridX.center(),
-      y: this.gridY.width - 64,
-      width: this.gridX.width * 0.5,
-      height: 1,
+      text: '┌────────────\n│                        \n│                        ',
+      x: this.gridX.width - 167,
+      y: this.gridY.width - 34,
+      width: 167,
+      height: 34,
+      padding: -6,
     });
     ground.addChildTo(this);
     this.ground = ground;
