@@ -16,6 +16,13 @@ phina.define('Owata', {
   movingRightDown: '┏( ^o^)┛\n┛┓',
   jumpingLeft: '┗(^o^ )┛\n┗┃',
   jumpingRight: '┗( ^o^)┛\n┃┛',
+  dying: [
+    '◎',
+    '◎\n◎  ◎\n◎',
+    '◎\n◎  ◎\n◎      ◎\n◎  ◎\n◎',
+    '◎\n\n◎      ◎\n\n◎          ◎\n\n◎      ◎\n\n◎',
+  ],
+  diedFrame: 0,
 
   init(options) {
     const defaults = {
@@ -91,6 +98,18 @@ phina.define('Owata', {
     this.touchingGround = false;
     this.physical.velocity.x *= 0.1;
     this.physical.gravity.y = this.gravity;
+  },
+
+  die(frame) {
+    if (!this.diedFrame) {
+      this.diedFrame = frame;
+    }
+    const delta = frame - this.diedFrame;
+    this.text = this.dying[Math.floor(delta / 2)] || ' ';
+
+    this.physical.force(0, 0);
+    this.physical.gravity.x = 0;
+    this.physical.gravity.y = 0;
   },
 
 });

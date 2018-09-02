@@ -38,6 +38,15 @@ phina.define('MainScene', {
       y: this.gridY.width - 34,
     }).addChildTo(grounds);
 
+    const n = new AAObject({
+      text: '△△△△△△△△△△△△△△△\n│                            │\n└──────────────┘\n§\n§\n§\n§\n§\n§\n§\n§',
+      width: 216,
+      height: 14 * 3 - 6,
+      x: 164.5,
+      y: this.gridY.width - 14,
+    }).addChildTo(grounds);
+    this.needle = n;
+
     const s = new Scaffold({
       text: '[ニニニ]',
       width: 52,
@@ -59,30 +68,36 @@ phina.define('MainScene', {
       owata,
       grounds,
       scaffold,
+      needle,
     } = this;
 
-    const ground = grounds.children.find(g => owata.hitTestElement(g));
-    if (ground) {
-      owata.touchGround(ground);
-    }
-    else {
-      owata.fall();
-    }
-    
     scaffold.switchDirection();
 
-    if (keyboard.getKey('left')) {
-      owata.moveLeft(frame);
-    }
-    else if (keyboard.getKey('right')) {
-      owata.moveRight(frame);
+    if (owata.hitTestElement(needle)) {
+      owata.die(frame);
     }
     else {
-      owata.stay();
-    }
+      const ground = grounds.children.find(g => owata.hitTestElement(g));
+      if (ground) {
+        owata.touchGround(ground);
+      }
+      else {
+        owata.fall();
+      }
 
-    if (keyboard.getKey('z')) {
-      owata.jump();
+      if (keyboard.getKey('left')) {
+        owata.moveLeft(frame);
+      }
+      else if (keyboard.getKey('right')) {
+        owata.moveRight(frame);
+      }
+      else {
+        owata.stay();
+      }
+
+      if (keyboard.getKey('z')) {
+        owata.jump();
+      }
     }
   },
 
