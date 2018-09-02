@@ -6,7 +6,7 @@ phina.define('Owata', {
   leftFace: true,
   jumpPower: 24,
   gravity: 2,
-  touchingGround: true,
+  touchingGround: false,
 
   stayingLeft: '┏(^o^ )┓\n┃┃',
   stayingRight: '┏( ^o^)┓\n┃┃',
@@ -20,7 +20,7 @@ phina.define('Owata', {
   init(options) {
     const defaults = {
       text: this.stayingLeft,
-      width: 60,
+      width: 40,
       height: 30,
     };
 
