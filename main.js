@@ -22,31 +22,33 @@ phina.define('MainScene', {
 
     new AAObject({
       text: '┌────────────\n│                        \n│                        ',
-      x: this.gridX.width - 167,
-      y: this.gridY.width - 34,
       width: 167,
       height: 34,
       padding: -6,
+      x: this.gridX.width - 167,
+      y: this.gridY.width - 34,
     }).addChildTo(grounds);
 
     new AAObject({
       text: '────────────┐\n                        │\n                        │',
-      x: 0,
-      y: this.gridY.width - 34,
       width: 167,
       height: 34,
       padding: -6,
+      x: 0,
+      y: this.gridY.width - 34,
     }).addChildTo(grounds);
 
-    const g = new AAObject({
+    const s = new Scaffold({
       text: '[ニニニ]',
-      x: this.gridX.center(),
-      y: this.gridY.width - 100,
       width: 52,
       height: 14,
+      velocityX: 5,
+      x: this.gridX.center(),
+      y: this.gridY.width - 100,
+      boundaryRight: this.gridX.width - 184,
+      boundaryLeft: 223,
     }).addChildTo(grounds);
-    g.physical.velocity.x = 5;
-    this.scaffold = g;
+    this.scaffold = s;
   },
 
   update({
@@ -66,10 +68,8 @@ phina.define('MainScene', {
     else {
       owata.fall();
     }
-
-    if (scaffold.x > this.gridX.width - 184 - scaffold.width || scaffold.x < 223) {
-      scaffold.physical.velocity.x *= -1;
-    }
+    
+    scaffold.switchDirection();
 
     if (keyboard.getKey('left')) {
       owata.moveLeft(frame);
