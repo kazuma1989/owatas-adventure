@@ -45,7 +45,8 @@ phina.define('MainScene', {
       width: 52,
       height: 14,
     }).addChildTo(grounds);
-    g.physical.velocity.x = 1;
+    g.physical.velocity.x = 5;
+    this.scaffold = g;
   },
 
   update({
@@ -55,6 +56,7 @@ phina.define('MainScene', {
     const {
       owata,
       grounds,
+      scaffold,
     } = this;
 
     const ground = grounds.children.find(g => owata.hitTestElement(g));
@@ -63,6 +65,10 @@ phina.define('MainScene', {
     }
     else {
       owata.fall();
+    }
+
+    if (scaffold.x > this.gridX.width - 184 - scaffold.width || scaffold.x < 223) {
+      scaffold.physical.velocity.x *= -1;
     }
 
     if (keyboard.getKey('left')) {

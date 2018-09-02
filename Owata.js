@@ -89,6 +89,7 @@ phina.define('Owata', {
 
   fall() {
     this.touchingGround = false;
+    this.physical.velocity.x *= 0.1;
     this.physical.gravity.y = this.gravity;
   },
 
