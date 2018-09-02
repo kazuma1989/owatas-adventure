@@ -25,7 +25,7 @@ phina.define('Scaffold', {
   },
 
   update() {
-    if (this.x < this.boundaryLeft || this.boundaryRight - this.width < this.x) {
+    if (this.left < this.boundaryLeft || this.boundaryRight < this.right) {
       this.physical.velocity.x *= -1;
     }
   },

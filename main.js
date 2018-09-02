@@ -40,23 +40,38 @@ phina.define('MainScene', {
 
     const n = new AAObject({
       text: '△△△△△△△△△△△△△△△\n│                            │\n└──────────────┘\n§\n§\n§\n§\n§\n§\n§\n§',
-      width: 216,
+      width: 212,
       height: 14 * 3 - 6,
-      x: 164.5,
+      originX: 0.5,
+      x: 276.5,
       y: this.gridY.width - 14,
     }).addChildTo(grounds);
-    n.physical.friction = 0.93;
+    Object.assign(n, {
+      start() {
+        this.tweener
+          .by({
+            y: -135,
+          }, 400, 'easeOutCubic')
+          .wait(500)
+          .by({
+            y: 135,
+          }, 2200, 'easeOutCubic')
+          .wait(100)
+          .play();
+      },
+    });
     this.needle = n;
 
     const s = new Scaffold({
       text: '[ニニニ]',
       width: 52,
-      height: 14,
+      height: 13,
       velocityX: 5,
+      originX: 0.5,
       x: this.gridX.center(),
       y: this.gridY.width - 100,
-      boundaryRight: this.gridX.width - 184,
-      boundaryLeft: 223,
+      boundaryRight: 366,
+      boundaryLeft: 222,
     }).addChildTo(grounds);
     this.scaffold = s;
 
@@ -95,7 +110,7 @@ phina.define('MainScene', {
       }
 
       if (owata.hitTestElement(scaffold)) {
-        needle.physical.velocity.y = -11;
+        needle.start();
       }
 
       if (keyboard.getKey('left')) {
