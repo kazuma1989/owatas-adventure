@@ -45,6 +45,7 @@ phina.define('MainScene', {
       x: 164.5,
       y: this.gridY.width - 14,
     }).addChildTo(grounds);
+    n.physical.friction = 0.93;
     this.needle = n;
 
     const s = new Scaffold({
@@ -76,9 +77,10 @@ phina.define('MainScene', {
       owata,
       grounds,
       needle,
+      scaffold,
     } = this;
 
-    if (owata.hitTestElement(needle)) {
+    if (this.gameover || owata.hitTestElement(needle)) {
       this.gameover = true;
       this.label.show();
       owata.die(frame);
@@ -90,6 +92,10 @@ phina.define('MainScene', {
       }
       else {
         owata.fall();
+      }
+
+      if (owata.hitTestElement(scaffold)) {
+        needle.physical.velocity.y = -11;
       }
 
       if (keyboard.getKey('left')) {
