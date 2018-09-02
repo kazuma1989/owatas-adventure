@@ -4,8 +4,8 @@ phina.define('Owata', {
 
   speed: 8,
   leftFace: true,
-  jumpPower: 24,
-  gravity: 2,
+  jumpPower: 13,
+  gravity: 1,
   touchingGround: false,
 
   stayingLeft: '┏(^o^ )┓\n┃┃',
