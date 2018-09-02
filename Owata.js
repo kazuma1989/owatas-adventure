@@ -78,11 +78,12 @@ phina.define('Owata', {
 
   touchGround(ground) {
     this.touchingGround = true;
-    this.physical.velocity.y = 0;
+    this.physical.velocity.x = ground.physical.velocity.x;
+    this.physical.velocity.y = ground.physical.velocity.y;
     this.physical.gravity.y = 0;
 
     // あえて少しめり込ませる。
-    // このメソッド呼び出し後も hitTestElement の結果が true になるようにすれば、
+    // このメソッド呼び出し後も hitTestElement の結果が false にならないようにすれば、
     // 1px 内で落下と着地を繰り返すのを防げるため。
     this.bottom = ground.top + 1;
   },

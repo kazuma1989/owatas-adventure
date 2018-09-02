@@ -16,16 +16,36 @@ phina.define('MainScene', {
     owata.addChildTo(this);
     this.owata = owata;
 
-    const ground = new AAObject({
+    const grounds = new DisplayElement();
+    grounds.addChildTo(this);
+    this.grounds = grounds;
+
+    new AAObject({
       text: '┌────────────\n│                        \n│                        ',
       x: this.gridX.width - 167,
       y: this.gridY.width - 34,
       width: 167,
       height: 34,
       padding: -6,
-    });
-    ground.addChildTo(this);
-    this.ground = ground;
+    }).addChildTo(grounds);
+
+    new AAObject({
+      text: '────────────┐\n                        │\n                        │',
+      x: 0,
+      y: this.gridY.width - 34,
+      width: 167,
+      height: 34,
+      padding: -6,
+    }).addChildTo(grounds);
+
+    const g = new AAObject({
+      text: '[ニニニ]',
+      x: this.gridX.center(),
+      y: this.gridY.width - 100,
+      width: 52,
+      height: 14,
+    }).addChildTo(grounds);
+    g.physical.velocity.x = 1;
   },
 
   update({
@@ -34,10 +54,11 @@ phina.define('MainScene', {
   }) {
     const {
       owata,
-      ground,
+      grounds,
     } = this;
 
-    if (owata.hitTestElement(ground)) {
+    const ground = grounds.children.find(g => owata.hitTestElement(g));
+    if (ground) {
       owata.touchGround(ground);
     }
     else {
