@@ -71,7 +71,6 @@ phina.define('Owata', {
   jump() {
     this.text = this.leftFace ? this.jumpingLeft : this.jumpingRight;
     if (this.touchingGround) {
-      this.touchingGround = false;
       this.physical.velocity.y = -this.jumpPower;
     }
   },
@@ -89,6 +88,7 @@ phina.define('Owata', {
   },
 
   fall() {
+    this.touchingGround = false;
     this.physical.gravity.y = this.gravity;
   },
 
