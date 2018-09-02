@@ -1,5 +1,57 @@
 const SPEED = 12;
 
+phina.define('TitleScene', {
+
+  superClass: 'DisplayScene',
+
+  init(options) {
+    this.superInit(options);
+
+    new Label({
+      text: 'The Big Adventure of Owata`s Life',
+      padding: 0,
+      fontSize: 14,
+      originY: 0,
+      x: this.gridX.center(),
+      y: 3,
+    }).addChildTo(this);
+
+    new Label({
+      text: '人生ｵﾜﾀ                       \n＼(^o^)／\n                     の大冒険',
+      fontSize: 44,
+      lineHeight: 1,
+      originY: 0,
+      x: this.gridX.center(),
+      y: 20,
+    }).addChildTo(this);
+
+    new RectangleShape({
+      width: 518,
+      height: 146,
+      padding: 0,
+      fill: 'transparent',
+      stroke: 'black',
+      strokeWidth: 1,
+      originY: 0,
+      x: this.gridX.center(),
+      y: 20,
+    }).addChildTo(this);
+
+    new Label({
+      text: 'START',
+      fontSize: 32,
+      lineHeight: 1,
+      x: this.gridX.center(),
+      y: 213,
+    }).addChildTo(this);
+  },
+
+  onpointend() {
+    this.exit();
+  },
+
+});
+
 phina.define('MainScene', {
 
   superClass: 'DisplayScene',
@@ -141,8 +193,7 @@ phina.define('MainScene', {
 
 phina.main(() => {
   const app = new GameApp({
-    title: '人生ｵﾜﾀ\n＼(^o^)／\nの大冒険',
-    startLabel: 'main',
+    startLabel: 'title',
     width: 550,
     height: 350,
     fit: false,
@@ -152,6 +203,11 @@ phina.main(() => {
       },
     },
     scenes: [
+      {
+        label: 'title',
+        className: 'TitleScene',
+        nextLabel: 'main',
+      },
       {
         label: 'main',
         className: 'MainScene',
