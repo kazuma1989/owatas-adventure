@@ -68,6 +68,16 @@ phina.define('MainScene', {
     owata.addChildTo(this);
     this.owata = owata;
 
+    new AAObject({
+      text: '┌───┐\n│←樹海│\n└───┘\n║\n║',
+      padding: -6,
+      width: 57,
+      height: 58,
+      originY: 0,
+      x: 10,
+      y: this.gridY.width - 92,
+    }).addChildTo(this);
+
     const grounds = new DisplayElement();
     grounds.addChildTo(this);
     this.grounds = grounds;
