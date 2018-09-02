@@ -15,6 +15,16 @@ phina.define('MainScene', {
     });
     owata.addChildTo(this);
     this.owata = owata;
+
+    const ground = new AAObject({
+      text: '────────────────────',
+      x: this.gridX.center(),
+      y: this.gridY.width - 64,
+      width: this.gridX.width * 0.5,
+      height: 1,
+    });
+    ground.addChildTo(this);
+    this.ground = ground;
   },
 
   update({
@@ -23,7 +33,15 @@ phina.define('MainScene', {
   }) {
     const {
       owata,
+      ground,
     } = this;
+
+    if (owata.hitTestElement(ground)) {
+      owata.touchGround(ground);
+    }
+    else {
+      owata.fall();
+    }
 
     if (keyboard.getKey('left')) {
       owata.moveLeft(frame);
@@ -37,10 +55,6 @@ phina.define('MainScene', {
 
     if (keyboard.getKey('z')) {
       owata.jump();
-    }
-
-    if (owata.y > this.gridY.center()) {
-      owata.touchGround(this.gridY.center());
     }
   },
 

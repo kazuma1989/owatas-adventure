@@ -11,9 +11,11 @@ phina.define('AAObject', {
     }
 
     const defaults = {
-      text: '┗(^o^ )┓\n┏┗ ',
+      text: '(^o^ )',
       fontFamily: 'monospace',
       fontSize: 14,
+      width: 40,
+      height: 7,
     };
 
     this.superInit(Object.assign(defaults, options));
