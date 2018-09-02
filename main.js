@@ -11,7 +11,7 @@ phina.define('MainScene', {
 
     const owata = new Owata({
       x: 484,
-      y: 301,
+      y: 280,
     });
     owata.addChildTo(this);
     this.owata = owata;
@@ -58,6 +58,14 @@ phina.define('MainScene', {
       boundaryLeft: 223,
     }).addChildTo(grounds);
     this.scaffold = s;
+
+    this.label = new Label({
+      text: 'リトライ (R)',
+      originX: 1,
+      originY: 0,
+      x: this.gridX.width,
+      y: 0,
+    }).addChildTo(this).hide();
   },
 
   update({
@@ -67,13 +75,12 @@ phina.define('MainScene', {
     const {
       owata,
       grounds,
-      scaffold,
       needle,
     } = this;
 
-    scaffold.switchDirection();
-
     if (owata.hitTestElement(needle)) {
+      this.gameover = true;
+      this.label.show();
       owata.die(frame);
     }
     else {
@@ -101,10 +108,19 @@ phina.define('MainScene', {
     }
   },
 
+  onkeypress({
+    keyCode,
+  }) {
+    if (this.gameover && keyCode === 'r'.charCodeAt(0)) {
+      this.exit();
+    }
+  },
+
 });
 
 phina.main(() => {
   const app = new GameApp({
+    title: '人生ｵﾜﾀ\n＼(^o^)／\nの大冒険',
     startLabel: 'main',
     width: 550,
     height: 350,
@@ -114,6 +130,13 @@ phina.main(() => {
         owata: 'owata1.wav',
       },
     },
+    scenes: [
+      {
+        label: 'main',
+        className: 'MainScene',
+        nextLabel: 'main',
+      },
+    ],
   });
 
   app.run();
