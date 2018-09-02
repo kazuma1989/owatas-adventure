@@ -109,6 +109,11 @@ phina.main(() => {
     width: 550,
     height: 350,
     fit: false,
+    assets: {
+      sound: {
+        owata: 'owata1.wav',
+      },
+    },
   });
 
   app.run();

@@ -7,6 +7,8 @@ phina.define('Owata', {
   jumpPower: 13,
   gravity: 1,
   touchingGround: false,
+  diedFrame: 0,
+  dead: false,
 
   stayingLeft: '┏(^o^ )┓\n┃┃',
   stayingRight: '┏( ^o^)┓\n┃┃',
@@ -22,7 +24,6 @@ phina.define('Owata', {
     '◎\n◎  ◎\n◎      ◎\n◎  ◎\n◎',
     '◎\n\n◎      ◎\n\n◎          ◎\n\n◎      ◎\n\n◎',
   ],
-  diedFrame: 0,
 
   init(options) {
     const defaults = {
@@ -101,6 +102,12 @@ phina.define('Owata', {
   },
 
   die(frame) {
+    // 死亡直後限定のイベント
+    if (!this.dead) {
+      this.dead = true;
+      SoundManager.play('owata');
+    }
+
     if (!this.diedFrame) {
       this.diedFrame = frame;
     }
